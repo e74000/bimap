@@ -7,6 +7,19 @@ func NewBiMap[P comparable, Q comparable]() *BiMap[P, Q] {
 	}
 }
 
+func MapToBimap[P comparable, Q comparable](m map[P]Q) *BiMap[P, Q] {
+	bm := &BiMap[P, Q]{
+		forward: make(map[P]Q, len(m)),
+		reverse: make(map[Q]P, len(m)),
+	}
+
+	for p, q := range m {
+		bm.Set(p, q)
+	}
+
+	return bm
+}
+
 type BiMap[P comparable, Q comparable] struct {
 	forward map[P]Q
 	reverse map[Q]P
